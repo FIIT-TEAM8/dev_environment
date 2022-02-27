@@ -3,7 +3,7 @@ import subprocess
 import os
 import shutil
 
-CONFIG_FILE = "dev_env_config.yaml"
+CONFIG_FILE = "config.yaml"
 
 with open(CONFIG_FILE) as f:
     global_config = yaml.safe_load(f)
@@ -20,11 +20,8 @@ def prepare_service_config():
 
 
 
-def remove_redundant_services():
+def remove_redundant_services(compose_file):
     redundant_services = global_config["redundant_services"]
-
-    with open("service_config/docker-compose.yml") as f:
-        compose_file = yaml.safe_load(f)
 
     # delete redundant services
     for service in redundant_services:
@@ -65,7 +62,7 @@ def dump_compose(compose_file):
 
 
 
-def additional_config(compose_file):
+def user_config(compose_file):
     for service in global_config["service_details"]:
         if "additional_config" in global_config["service_details"][service]:
             for key in global_config["service_details"][service]["additional_config"]:
@@ -76,17 +73,23 @@ def additional_config(compose_file):
     return compose_file
 
 
+
+
 ENV_PASSWORD = input("Enter password for decrypting environmental variables: ")
 print("Cloning Github repository..")
 prepare_service_config()
+
+with open("service_config/docker-compose.yml") as f:
+    compose = yaml.safe_load(f)
+
 print("Adjusting docker-compose.yml...")
-compose = remove_redundant_services()
+compose = remove_redundant_services(compose)
 print("Creating directory structure...")
 create_directory_structure(compose)
 print("Decrypting and unpacking env variables...")
 prepare_env_variables()
 print("Adjusting with user config...")
-compose = additional_config(compose)
+compose = user_config(compose)
 
 print("DONE.")
 dump_compose(compose)
