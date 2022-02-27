@@ -1,3 +1,4 @@
+# services that will NOT be present in your dev docker-compose.yml
 redundant_services:
   - certbot
   - pgadmin
