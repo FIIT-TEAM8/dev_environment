@@ -1,0 +1,35 @@
+redundant_services:
+  - certbot
+  - pgadmin
+  - documentation
+  - nginx
+
+service_details:
+  service_config:
+    repository: https://github.com/FIIT-TEAM8/service_config.git
+  
+  application_web:
+    repository: https://github.com/FIIT-TEAM8/application_web.git
+  
+  team_web_page:
+    repository: https://github.com/FIIT-TEAM8/team_web_page.git
+  
+  scraper:
+    repository: https://github.com/FIIT-TEAM8/scraper.git
+  
+  flask_server:
+    repository: https://github.com/FIIT-TEAM8/flask_server.git
+  
+  nginx:
+    repository: https://github.com/FIIT-TEAM8/nginx_config
+    clone_destination: service_config/data_link/
+  
+  es01:
+    additional_config:
+      environment:
+        - "discovery.type=single-node"
+  
+  mongo_express:
+    additional_config:
+      environment:
+        - ME_CONFIG_SITE_BASEURL=/
