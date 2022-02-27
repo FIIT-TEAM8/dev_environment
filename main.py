@@ -90,3 +90,6 @@ compose = additional_config(compose)
 
 print("DONE.")
 dump_compose(compose)
+
+# temporary fix, dot notation not working in .env files on wsl2
+open("service_config/env/elastic.env", "w")
