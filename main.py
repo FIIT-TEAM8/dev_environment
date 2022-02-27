@@ -41,6 +41,8 @@ def create_directory_structure(compose_file):
                 path_to_create = volume.split(":")[0]
                 os.makedirs(path_to_create, exist_ok=True)
 
+    chmod_cmd = ["chmod", "-R", "777" ,"data_link"]
+    subprocess.Popen(chmod_cmd).wait()
     os.chdir(cwd)
 
 
