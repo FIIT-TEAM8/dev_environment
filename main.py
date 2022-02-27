@@ -66,12 +66,12 @@ def dump_compose(compose_file):
 
 def user_config(compose_file):
     for service in global_config["service_details"]:
-        if "additional_config" in global_config["service_details"][service]:
-            for key in global_config["service_details"][service]["additional_config"]:
+        if "compose_adjustment" in global_config["service_details"][service]:
+            for key in global_config["service_details"][service]["compose_adjustment"]:
                 if key in compose_file["services"][service] and isinstance(compose_file["services"][service][key], list):
-                    compose_file["services"][service][key].extend(global_config["service_details"][service]["additional_config"][key])
+                    compose_file["services"][service][key].extend(global_config["service_details"][service]["compose_adjustment"][key])
                 else:
-                    compose_file["services"][service][key] = global_config["service_details"][service]["additional_config"][key]
+                    compose_file["services"][service][key] = global_config["service_details"][service]["compose_adjustment"][key]
     return compose_file
 
 
