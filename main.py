@@ -34,7 +34,7 @@ def remove_redundant_services():
 
 
 
-def create_folder_structure(compose_file):
+def create_directory_structure(compose_file):
     # create folders specified in compose
     cwd = os.getcwd()
     os.chdir("service_config")
@@ -77,11 +77,16 @@ def additional_config(compose_file):
 
 
 ENV_PASSWORD = input("Enter password for decrypting environmental variables: ")
+print("Cloning Github repository..")
 prepare_service_config()
+print("Adjusting docker-compose.yml...")
 compose = remove_redundant_services()
-create_folder_structure(compose)
+print("Creating directory structure...")
+create_directory_structure(compose)
+print("Decrypting and unpacking env variables...")
 prepare_env_variables()
+print("Adjusting with user config...")
 compose = additional_config(compose)
 
-
+print("DONE.")
 dump_compose(compose)
