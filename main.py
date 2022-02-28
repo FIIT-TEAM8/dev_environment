@@ -1,3 +1,4 @@
+from xxlimited import new
 import yaml
 import subprocess
 import os
@@ -75,6 +76,15 @@ def user_config(compose_file):
     return compose_file
 
 
+def prepareNGINX():
+    cmd_git = ["git", "clone", global_config["service_details"]["nginx"]["repository"], global_config["service_details"]["nginx"]["clone_destination"]]
+    subprocess.Popen(cmd_git).wait()
+    config = global_config["service_details"]["nginx"]["clone_destination"] + "app.conf"
+    new_config_text = open("nginx.app.conf").read()
+    with open(config, "w") as overwrite:
+        overwrite.write(new_config_text)
+    
+
 
 
 ENV_PASSWORD = input("Enter password for decrypting environmental variables: ")
@@ -91,6 +101,8 @@ print("Creating directory structure...")
 create_directory_structure(compose)
 print("Decrypting and unpacking env variables...")
 prepare_env_variables()
+print("Setup NGINX...")
+prepareNGINX()
 print("Adjusting with user config...")
 
 print("DONE.")

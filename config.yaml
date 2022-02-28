@@ -3,7 +3,6 @@ redundant_services:
   - certbot
   - pgadmin
   - documentation
-  - nginx
 
 
 service_details:
@@ -12,7 +11,7 @@ service_details:
 
   nginx:
     repository: https://github.com/FIIT-TEAM8/nginx_config
-    clone_destination: service_config/data_link/
+    clone_destination: service_config/data_link/nginx/
   
   es01:
     compose_adjustment:
