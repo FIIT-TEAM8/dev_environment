@@ -3,6 +3,12 @@ redundant_services:
   - certbot
   - pgadmin
   - documentation
+  - postgres_db
+  - pgadmin
+  - mongo_express
+  - flask_server
+  - node_server
+  - scraper
 
 
 service_details:
@@ -18,7 +24,7 @@ service_details:
       environment:
         - "discovery.type=single-node"
   
-  mongo_express:
-    compose_adjustment:
-      environment:
-        - ME_CONFIG_SITE_BASEURL=/
+  # mongo_express:
+  #   compose_adjustment:
+  #     environment:
+  #       - ME_CONFIG_SITE_BASEURL=/

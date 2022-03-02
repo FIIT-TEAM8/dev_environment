@@ -5,9 +5,13 @@ import os
 import shutil
 
 CONFIG_FILE = "config.yaml"
+ES_INDEXER_FILE = "es_indexer.yaml"
 
 with open(CONFIG_FILE) as f:
     global_config = yaml.safe_load(f)
+
+with open(ES_INDEXER_FILE) as f:
+    es_indexer_yaml = yaml.safe_load(f)
 
 
 def prepare_service_config():
@@ -76,6 +80,14 @@ def user_config(compose_file):
     return compose_file
 
 
+def add_es_indexer(compose_file):
+    ''' add es_indexer to dev environment compose file in services section '''
+
+    compose_file['services']['es_indexer'] = es_indexer_yaml['es_indexer']
+
+    return compose_file
+
+
 def prepareNGINX():
     cmd_git = ["git", "clone", global_config["service_details"]["nginx"]["repository"], global_config["service_details"]["nginx"]["clone_destination"]]
     subprocess.Popen(cmd_git).wait()
@@ -83,8 +95,6 @@ def prepareNGINX():
     new_config_text = open("nginx.app.conf").read()
     with open(config, "w") as overwrite:
         overwrite.write(new_config_text)
-    
-
 
 
 ENV_PASSWORD = input("Enter password for decrypting environmental variables: ")
@@ -96,6 +106,7 @@ with open("service_config/docker-compose.yml") as f:
 
 print("Adjusting docker-compose.yml...")
 compose = user_config(compose)
+compose = add_es_indexer(compose)
 compose = remove_redundant_services(compose)
 print("Creating directory structure...")
 create_directory_structure(compose)
