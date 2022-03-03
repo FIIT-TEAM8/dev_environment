@@ -105,8 +105,8 @@ with open("service_config/docker-compose.yml") as f:
     compose = yaml.safe_load(f)
 
 print("Adjusting docker-compose.yml...")
-compose = user_config(compose)
 compose = add_es_indexer(compose)
+compose = user_config(compose)
 compose = remove_redundant_services(compose)
 print("Creating directory structure...")
 create_directory_structure(compose)
