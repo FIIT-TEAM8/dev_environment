@@ -19,6 +19,7 @@ services:
       resources:
         limits:
           cpus: 2
+          memory: 4g
    
   mongo_db:
     image: fiitteam8/mongo_db
@@ -33,6 +34,7 @@ services:
       resources:
         limits:
           cpus: 1
+          memory: 1g
 
   mongo_express:
     image: mongo-express
@@ -46,6 +48,7 @@ services:
       resources:
         limits:
           cpus: 1
+          memory: 1g
 
 
   postgres_db:
@@ -61,6 +64,7 @@ services:
       resources:
         limits:
           cpus: 1
+          memory: 1g
   
   es_indexer:
    image: fiitteam8/es_indexer:latest
