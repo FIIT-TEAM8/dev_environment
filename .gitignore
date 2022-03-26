@@ -2,4 +2,5 @@ service_config
 remote.env
 .env
 *.pyc
+venv
 data
