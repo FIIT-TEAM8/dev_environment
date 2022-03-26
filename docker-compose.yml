@@ -9,8 +9,8 @@ services:
     user: "0"
     command: >
       bash -c '
-        ELASTIC_PASSWORD=elastic123
-        KIBANA_PASSWORD=elastic123
+        export ELASTIC_PASSWORD=elastic123
+        export KIBANA_PASSWORD=elastic123
         if [ x${ELASTIC_PASSWORD} == x ]; then
           echo "Set the ELASTIC_PASSWORD environment variable in the .env file";
           exit 1;
