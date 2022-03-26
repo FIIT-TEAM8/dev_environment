@@ -3,14 +3,14 @@ version: '3'
 services:
   setup:
     container_name: es_setup
-    image: docker.elastic.co/elasticsearch/elasticsearch:latest
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.1.1
     volumes:
       - ./data/elastic/certs:/usr/share/elasticsearch/config/certs
     user: "0"
     command: >
       bash -c '
-        ELASTIC_PASSWORD="bruh"
-        KIBANA_PASSWORD="bruh"
+        ELASTIC_PASSWORD=elastic123
+        KIBANA_PASSWORD=elastic123
         if [ x${ELASTIC_PASSWORD} == x ]; then
           echo "Set the ELASTIC_PASSWORD environment variable in the .env file";
           exit 1;
@@ -56,7 +56,7 @@ services:
     - local.env
 
   es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.1.1
     container_name: es01
     env_file:
       - local.env
