@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  tor-1:
+    container_name: 'tor-1'
+    image: 'pickapp/tor-proxy:latest'
+    environment:
+      - IP_CHANGE_SECONDS=15
+    restart: always
+    ports:
+      - 9990:8888
+  tor-2:
+    container_name: 'tor-2'
+    image: 'pickapp/tor-proxy:latest'
+    environment:
+      - IP_CHANGE_SECONDS=15
+    restart: always
+    ports:
+      - 9991:8888
+  tor-3:
+    container_name: 'tor-3'
+    image: 'pickapp/tor-proxy:latest'
+    environment:
+      - IP_CHANGE_SECONDS=15
+    restart: always
+    ports:
+      - 9992:8888
+  multitool:
+    image: praqma/network-multitool
+
+networks:
+  default:
+      name: adversea
